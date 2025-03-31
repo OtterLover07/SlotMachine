@@ -12,10 +12,14 @@
 #include <SPI.h>
 
 // Init constants
+const int sensitivity = 45;
 const int dispenser = 2;
-const int symbols[10] = {0x02,0x03,0x04,0x05,0x06,0x08,0x0B,0x0C,0x0E,0x0F};
+const int symbols[11] = {0x03,0x03,0x04,0x04,0x05,0x05,0x06,0x06,0x0E,0x0E,0x0F};
 
 // Init global variables
+int credits = 0;
+int currentReading = 0;
+int lastReading = 0;
 
 // construct objects
 
@@ -29,31 +33,35 @@ DisplayType tft(PIN_RESET, PIN_DC, PIN_CS);
 
 void setup() {
   // init communication
-  Serial.begin(115200);
+  Serial.begin(9600);
   spiBegin();
 
   // Init Hardware
-  pinMode(dispenser, OUTPUT);
+  pinMode(dispenser, OUTPUT); 
   pinMode(3, INPUT_PULLUP);
   randomSeed(analogRead(A0));
   tft.begin();
   tft.fillScreen(tft.BLACK);
   tft.setTextColor(tft.WHITE,tft.BLACK);
   tft.setRotation(3);
+  gamble();
   tft.setCursor(0, 0);
+  tft.setTextSize(3);
   tft.println(F("Setup Complete!"));
   Serial.println(F("Setup Complete!"));
   delay(1000);
   tft.fillScreen(tft.BLACK);
+  displayCredits();
 }
 
 void loop() {
-  while (digitalRead(3) == HIGH) {}
-  displayRandomSymbols();
-  dispense(3);
-
-  while (digitalRead(3) == HIGH) {}
-  displayRandomSymbols();
-  dispense(5);
+  while (digitalRead(3) == HIGH) {
+    checkCredits();
+  }
+  if (credits > 0) {
+    credits -= 1;
+    displayCredits();
+    gamble();
+  }
   
 }
