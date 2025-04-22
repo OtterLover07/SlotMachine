@@ -48,21 +48,24 @@ void gamble() {
   } else if ((rolled[0] == rolled[1] && rolled[0] == 0x0E) || (rolled[0] == rolled[2] && rolled[0] == 0x0E) || (rolled[1] == rolled[2] && rolled[1] == 0x0E)) {
     Serial.println("Note Doubles (No Payout)");
   } else if ((rolled[0] == rolled[1]) || (rolled[0] == rolled[2]) || (rolled[1] == rolled[2])) {
-    payout(1);
-    Serial.println("Suit Doubles (1)");
+    payout(2);
+    Serial.println("Suit Doubles (2)");
   } else {
     Serial.println("No Payout");
   }
 }
 
 void checkCredits() {
-  currentReading = analogRead(A5);
-  Serial.println(currentReading);
-  if (currentReading < (lastReading - sensitivity)) {
+  currentReading[0] = analogRead(A5);
+  delay(5);
+  currentReading[1] = analogRead(A5);
+  int reading = (currentReading[0] + currentReading[1])/2;
+  //Serial.println(reading);
+  if (reading < (lastReading - sensitivity)) {
     delay(200);
     credits += 1;
     Serial.println("Credit inserted!");
     displayCredits();
   }
-  lastReading = currentReading;
+  lastReading = reading;
 }

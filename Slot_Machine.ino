@@ -12,13 +12,14 @@
 #include <SPI.h>
 
 // Init constants
-const int sensitivity = 45;
+const int sensitivity = 80;
+const int knapp = 3;
 const int dispenser = 2;
 const int symbols[11] = {0x03,0x03,0x04,0x04,0x05,0x05,0x06,0x06,0x0E,0x0E,0x0F};
 
 // Init global variables
 int credits = 0;
-int currentReading = 0;
+int currentReading[2] = {0,0};
 int lastReading = 0;
 
 // construct objects
@@ -55,7 +56,7 @@ void setup() {
 }
 
 void loop() {
-  while (digitalRead(3) == HIGH) {
+  while (digitalRead(knapp) == HIGH) {
     checkCredits();
   }
   if (credits > 0) {
