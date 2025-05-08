@@ -41,7 +41,7 @@ void displayCredits() {
 }
 
 /*
-* This function is responsible for the gambling process. First it randomly shows a few symbols to tease the user.
+* This function is responsible for the gambling process. First it randomly shows a few symbols to engage the user.
 * It then rolls three random symbols and stores their values along with displaying them to the user. It then checks
 * the rolled symbols. If the rolled set of symbols is eligible for a payout, the corresponding payout is then given.
 * Parameters: Void
