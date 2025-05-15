@@ -5,9 +5,9 @@
 */
 void payout(int x) {
   for (int i = 0; i < x; i++) {
-    digitalWrite(2, HIGH);
+    digitalWrite(dispenser, HIGH);
     delay(200);
-    digitalWrite(2, LOW);
+    digitalWrite(dispenser, LOW);
     delay(200);
   }
 }
