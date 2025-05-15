@@ -58,21 +58,21 @@ void gamble() {
 
   // Check if the rolled symbols should give a payout, and do if so.
   if (rolled[0] == rolled[1] && rolled[0] == rolled[2] && rolled[0] == 0x0F) {
-    payout(10);
     Serial.println("Jackpot! (15)");
+    payout(15);
   } else if (rolled[0] == rolled[1] && rolled[0] == rolled[2] && rolled[0] == 0x0E) {
-    payout(5);
     Serial.println("Note Triples (5)");
+    payout(5);
   } else if (rolled[0] == rolled[1] && rolled[0] == rolled[2]) {
+    Serial.println("Suit Triples (3)");
     payout(3);
-    Serial.println("Triples (3)");
   } else if ((rolled[0] == rolled[1] && rolled[0] == 0x0F) || (rolled[0] == rolled[2] && rolled[0] == 0x0F) || (rolled[1] == rolled[2] && rolled[1] == 0x0F)) {
     Serial.println("Eye Doubles (No Payout)");
   } else if ((rolled[0] == rolled[1] && rolled[0] == 0x0E) || (rolled[0] == rolled[2] && rolled[0] == 0x0E) || (rolled[1] == rolled[2] && rolled[1] == 0x0E)) {
     Serial.println("Note Doubles (No Payout)");
   } else if ((rolled[0] == rolled[1]) || (rolled[0] == rolled[2]) || (rolled[1] == rolled[2])) {
-    payout(2);
     Serial.println("Suit Doubles (2)");
+    payout(2);
   } else {
     Serial.println("No Payout");
   }
