@@ -57,6 +57,9 @@ void gamble() {
   }
 
   // Check if the rolled symbols should give a payout, and do if so.
+
+NEW SKETCH
+
   if (rolled[0] == rolled[1] && rolled[0] == rolled[2] && rolled[0] == 0x0F) {
     Serial.println("Jackpot! (15)");
     payout(15);
